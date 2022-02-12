@@ -18,6 +18,23 @@ def get_posts():
         return Response("Something went wrong getting the jokes from the DB!", mimetype="application/json", status=400)
 
 
+@app.post('/api/jokes')
+def add_joke():
+    content = None
+    try:
+        content = request.json['content']
+        success = dbh.add_post(content)
+        if(success):
+            joke_json = json.dumps({
+                "content": content
+            }, default=str)
+            return Response(joke_json, mimetype="application/json", status=201)
+        else:
+            return Response("Something went wrong adding a post", mimetype="plain/text", status=400)
+    except:
+        return Response("Something went wrong adding a post!", mimetype="application/json", status=400)
+
+
 if(len(sys.argv) > 1):
     mode = sys.argv[1]
 else:
