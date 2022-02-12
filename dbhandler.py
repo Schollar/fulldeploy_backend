@@ -50,7 +50,7 @@ def get_jokes():
     return success, jokes
 
 
-def add_post(content):
+def add_joke(content):
     success = False
     conn, cursor = db_connect()
     try:
@@ -59,7 +59,6 @@ def add_post(content):
         conn.commit()
         if(cursor.rowcount == 1):
             success = True
-            id = cursor.lastrowid
     except db.OperationalError:
         print('Something is wrong with the db!')
     except db.ProgrammingError:

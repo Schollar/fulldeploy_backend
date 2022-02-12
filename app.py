@@ -23,7 +23,7 @@ def add_joke():
     content = None
     try:
         content = request.json['content']
-        success = dbh.add_post(content)
+        success = dbh.add_joke(content)
         if(success):
             joke_json = json.dumps({
                 "content": content
